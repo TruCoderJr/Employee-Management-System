@@ -12,6 +12,9 @@ A simple, powerful, and intuitive web application designed to streamline employe
 
 ---
 
+# Live 
+https://employee-management-system-umber-delta.vercel.app/
+
 ## 🚀 Technologies Used
 
 * **HTML5**
@@ -58,3 +61,36 @@ The main navigation starts from the landing page (`index.html`) by clicking the 
 ---
 
 ## 📂 Project Structure
+
+Employee-Management-System/
+├── index.html           # Landing Page
+├── menu.html            # Main Operation Selection Menu
+├── addEmp.html          # Page to add new employees
+├── updateEmp.html       # Page to update employee details
+├── searchById.html      # Page to search employee by ID
+├── searchByName.html    # Page to search employee by Name
+├── viewEmp.html         # Page to view all employees
+├── delete.html          # Page to delete employee records
+├── style.css            # Custom CSS styles
+└── index.js             # Core JavaScript logic for all pages
+
+## 🤝 Contribution
+
+Contributions are welcome! If you have any suggestions or find any bugs, feel free to:
+
+1.  **Fork** the repository.
+2.  Create a new feature branch (`git checkout -b feature/AmazingFeature`).
+3.  Commit your changes (`git commit -m 'Add some AmazingFeature'`).
+4.  Push to the branch (`git push origin feature/AmazingFeature`).
+5.  Open a **Pull Request**.
+
+---
+
+## 👤 Developed By
+
+**Md Tufail**
+
+* **GitHub:** [Your GitHub Profile Link] (e.g., `https://github.com/MdTufail`)
+* **Contact:** support@ems.com (as seen in the footer)
+
+*(If you like this project, consider giving it a star! ⭐)*
