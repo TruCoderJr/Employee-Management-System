@@ -1,0 +1,262 @@
+/* Index.html land page css  */
+
+/* Base styles */
+:root {
+  --primary-color: #2563eb;
+  --secondary-color: #1e40af;
+  --text-color: #1f2937;
+  --light-bg: #f3f4f6;
+}
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  display: flex; /* Make the body a flex container */
+  flex-direction: column; /* Arrange children in a column layout */
+}
+
+main {
+  flex-grow: 1; /* Allow main to take up remaining space */
+}
+
+a {
+  text-decoration: none;
+  color: white;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "-apple-system", "BlinkMacSystemFont", "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "sans-serif";
+  line-height: 1.6;
+  color: var(--text-color);
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* Navigation */
+.navbar {
+  background: white;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 1rem 0;
+  position: fixed;
+  width: 100%;
+  top: 0;
+  z-index: 1000;
+}
+
+.navbar .container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: var(--primary-color);
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: var(--text-color);
+  margin-left: 2rem;
+}
+
+.login-btn {
+  background: var(--primary-color);
+  color: white;
+  border: none;
+  padding: 0.5rem 1.5rem;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-left: 2rem;
+}
+
+/* Hero Section */
+.hero {
+  background: linear-gradient(to bottom, var(--light-bg), white);
+  padding: 8rem 0 4rem;
+  text-align: center;
+}
+
+.hero h1 {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+
+.hero p {
+  font-size: 1.2rem;
+  color: #4b5563;
+  margin-bottom: 2rem;
+}
+
+.cta-btn {
+  background: var(--primary-color);
+  color: white;
+  border: none;
+  padding: 1rem 2rem;
+  font-size: 1.1rem;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.cta-btn:hover {
+  background: var(--secondary-color);
+}
+
+/* Footer */
+footer {
+  background: white;
+  padding: 1rem 0;
+  text-align: center;
+  border-top: 1px solid #e5e7eb;
+}
+
+/* End */
+
+.mt-90{
+  margin-top: 90px;
+}
+
+/* Start */
+.remove {
+  display: none;
+  background: linear-gradient(to bottom, var(--light-bg), white);
+}
+/* .remove-btn{
+    display: none;
+} */
+
+.st {
+  font-size: 3rem;
+  /* margin-bottom: 10px; */
+  /* margin-top: 80px; */
+  text-align: center;
+}
+.cp {
+  margin-top: 10px;
+}
+.line {
+  display: flex;
+  margin: 40px;
+  text-align: center;
+  justify-content: space-between;
+}
+
+.btn {
+  /* width: 200px; */
+}
+
+/* add */
+/* .add{
+    display: -ms-inline-flexbox;
+    margin: 50px;
+    align-content: space-between;
+} */
+
+form {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.form1 {
+  display: none;
+  background: linear-gradient(to bottom, var(--light-bg), white);
+}
+
+.noRecord {
+  background-image: url("NoRecord.png");
+  background-size: cover;
+  height: 70vh;
+  /* width: 95vw; */
+  /* margin: 10px; */
+  /* margin-bottom: 33px; */
+  background-position: center;
+  /* background-blend-mode: color-dodge; */
+}
+
+.mainMenu {
+  margin-left: auto;
+  /* margin-right: auto; */
+  width: 57%;
+}
+#backBtn{
+  width: 25%;
+}
+
+/* .menu{
+    width: 100vh;
+    height: 100vw;
+} */
+
+/* footer {
+  margin-top: 8%;
+} */
+
+.form-control,
+.input-group-text {
+  height: 38px; /* Default Bootstrap input height */
+  line-height: 1.5;
+}
+
+.input-group{
+  width: 65%;
+}
+
+/* option 4 */
+.search {
+  /* height: 33%; */
+  width: 55%;
+  margin: auto;
+  /* align-content: center; */
+  /* margin-left: auto; */
+  /* margin-top: 10px;
+  margin-bottom: 10px; */
+}
+
+.search button {
+  margin: auto;
+}
+
+/* Menu Style */
+.main-div {
+  margin: auto;
+
+  width: 60%;
+}
+.main-div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.line {
+  display: flex;
+  gap: 150px;
+}
+
+.btns {
+  padding: 10px 20px;
+  font-size: 16px;
+}
+
+
+.search .btn-warning{
+  width: 40%;
+}
