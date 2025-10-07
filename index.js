@@ -1,4 +1,22 @@
 // index pg js
+let homeTag = document.querySelector(".homeTag");
+let featuresTag = document.querySelector(".featuresTag");
+let aboutTag = document.querySelector(".aboutAnchorTag");
+
+if (window.location.pathname.includes("index.html")) {
+  homeTag.style.color = `#1e40af`;
+  homeTag.style.opacity = 1;
+  homeTag.classList.toggle("text-dark");
+} else if (window.location.pathname.includes("features.html")) {
+  featuresTag.style.color = `#1e40af`;
+  featuresTag.classList.toggle("text-dark");
+  featuresTag.style.opacity = 1;
+} else if (window.location.pathname.includes("about.html")) {
+  aboutTag.style.color = `#1e40af`;
+  aboutTag.classList.toggle("text-dark");
+  aboutTag.style.opacity = 1;
+}
+
 let startBtn = document.querySelector("#startBtn");
 let employeesData = [];
 let count = localStorage.getItem("isDataFetch") || 0;
@@ -198,11 +216,12 @@ if (addEmpBtn || submittedEmpData) {
 }
 
 // update
-let searchBt = document.querySelector("#searchBt");
+// let searchBt = document.querySelector("#searchBt");
 let searchIp = document.querySelector("#userIp");
 let updForm = document.querySelector("form");
 let searchBtn = document.querySelector("#searchBtn");
 let updateBtn = document.querySelector("#updateEmpData");
+let searchDiv = document.querySelector(".search");
 
 employeesData = getEmployees();
 
@@ -218,7 +237,10 @@ if (searchBtn) {
         (item) => item.id == searchIp.value.trim()
       );
 
-      if (idx !== -1) {
+      if (idx != -1) {
+        if (form.classList.contains("remove")) {
+          form.classList.remove("remove");
+        }
         let item = employeesData[idx];
 
         if (updForm.classList.contains("remove")) {
@@ -234,6 +256,10 @@ if (searchBtn) {
         if (!table.classList.contains("remove")) {
           removeTblBd();
           table.classList.add("remove");
+        }
+
+        if (!searchDiv.classList.contains("remove")) {
+          searchDiv.classList.add("remove");
         }
 
         // Selecting input fields
@@ -301,7 +327,9 @@ async function UpdateEmp() {
   employeesData.push(emp);
 
   saveEmpDataToLocalStorage();
-
+  if (!form.classList.contains("remove")) {
+    form.classList.add("remove");
+  }
   makeTable(
     emp.id,
     emp.name,
@@ -312,6 +340,9 @@ async function UpdateEmp() {
     emp.email,
     emp.phno
   );
+  if (searchDiv.classList.contains("remove")) {
+    searchDiv.classList.remove("remove");
+  }
 
   clearForm(ids, name, gen, sal, des, deprt, ems, phs);
 }

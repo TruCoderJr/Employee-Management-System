@@ -13,16 +13,24 @@
   </head>
   <body>
     <nav class="navbar">
-      <div class="container">
-        <a href="index.html"><h1 class="logo">SEMS</h1></a>
-        <div class="nav-links">
-          <a onclick="location.href='features.html'">Features</a>
-          <a onclick="location.href='about.html'">About</a>
+      <div class="container d-flex justify-content-between align-items-center">
+        <a href="index.html" class="logo">SEMS</a>
+        <div class="nav-links d-none d-sm-block">
+          <a href="index.html" class="text-dark mx-2 text-decoration-none"
+            >Home</a
+          >
+
+          <a href="features.html" class="text-dark mx-2 text-decoration-none"
+            >Features</a
+          >
+          <a href="about.html" class="text-dark mx-2 text-decoration-none"
+            >About</a
+          >
         </div>
       </div>
     </nav>
 
-    <main class="mt-90 menu">
+    <main class="menu">
       <div class="container">
         <div class="menu-page">
           <div class="container-md">
@@ -75,9 +83,7 @@
       <div class="container p-4">
         <div class="row">
           <div class="col-lg-6 col-md-12 mb-4 mb-md-0">
-            <h5 class="text-uppercase fw-bold text-primary">
-              Employee Management System
-            </h5>
+            <h5 class="text-uppercase fw-bold">Employee Management System</h5>
             <p class="text-muted">
               A simple system to manage employees' details, records, and
               performance. Built with
@@ -87,7 +93,7 @@
           </div>
 
           <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
-            <h5 class="text-uppercase fw-bold text-primary">Quick Links</h5>
+            <h5 class="text-uppercase fw-bold">Quick Links</h5>
             <ul class="list-unstyled mb-0">
               <li>
                 <a href="#" class="text-dark text-decoration-none">Home</a>
@@ -105,30 +111,28 @@
           </div>
 
           <div class="col-lg-3 col-md-6 mb-md-0">
-            <h5 class="text-uppercase fw-bold text-primary">Contact</h5>
+            <h5 class="text-uppercase fw-bold">Contact</h5>
             <ul class="list-unstyled text-muted">
-              <li>
-                <i class="bi bi-envelope text-primary"></i> support@ems.com
-              </li>
-              <li><i class="bi bi-phone text-primary"></i> 1800 543 210</li>
-              <li>
-                <i class="bi bi-geo-alt text-primary"></i> Vadodara, Gujarat
-              </li>
+              <li><i class="bi bi-envelope"></i> support@ems.com</li>
+              <li><i class="bi bi-phone"></i> 1800 543 210</li>
+              <li><i class="bi bi-geo-alt"></i> Vadodara, Gujarat</li>
             </ul>
           </div>
         </div>
       </div>
       <div class="text-center p-3" id="developedBy">
         © 2025 Employee Management System | Developed by
-        <strong class="text-primary">Md Tufail</strong>
+        <strong class=" ">Md Tufail</strong>
       </div>
     </footer>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/js/all.min.js"></script>
-
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"></script>
+    <script
+      src="https://kit.fontawesome.com/3f7bf44392.js"
+      crossorigin="anonymous"
+      defer
+    ></script>
     <script src="index.js"></script>
   </body>
 </html>
