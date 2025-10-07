@@ -1,5 +1,3 @@
-/* Index.html land page css  */
-
 /* Base styles */
 :root {
   --primary-color: #2563eb;
@@ -15,17 +13,13 @@ body {
 }
 
 body {
-  display: flex; /* Make the body a flex container */
-  flex-direction: column; /* Arrange children in a column layout */
-}
-
-main {
-  flex-grow: 1; /* Allow main to take up remaining space */
-}
-
-a {
-  text-decoration: none;
-  color: white;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  font-family: "-apple-system", "BlinkMacSystemFont", "Segoe UI", "Roboto",
+    "Oxygen", "Ubuntu", "Cantarell", "sans-serif";
+  line-height: 1.6;
+  color: var(--text-color);
 }
 
 * {
@@ -34,22 +28,45 @@ a {
   box-sizing: border-box;
 }
 
-body {
-  font-family: "-apple-system", "BlinkMacSystemFont", "Segoe UI", "Roboto", "Oxygen",
-    "Ubuntu", "Cantarell", "sans-serif";
-  line-height: 1.6;
-  color: var(--text-color);
+a {
+  text-decoration: none;
+  color: white;
 }
 
+.mt-90 {
+  margin-top: 90px;
+}
+
+.remove {
+  display: none;
+  background: linear-gradient(to bottom, var(--light-bg), white);
+}
+
+.st {
+  font-size: 3rem;
+  text-align: center;
+}
+
+/* Index.html land page css  {*/
 .container {
-  max-width: 1200px;
   margin: 0 auto;
   padding: 0 20px;
 }
 
-/* Navigation */
+/* Navbar */
+.container .nav-links a {
+  opacity: 0.7;
+}
+
+.container .nav-links a:hover {
+  cursor: pointer;
+  opacity: 1;
+}
+
+
+/* Navigation {*/
 .navbar {
-  background: white;
+  background-color: #faf9f6;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   padding: 1rem 0;
   position: fixed;
@@ -76,19 +93,8 @@ body {
   margin-left: 2rem;
 }
 
-.login-btn {
-  background: var(--primary-color);
-  color: white;
-  border: none;
-  padding: 0.5rem 1.5rem;
-  border-radius: 5px;
-  cursor: pointer;
-  margin-left: 2rem;
-}
-
 /* Hero Section */
 .hero {
-  background: linear-gradient(to bottom, var(--light-bg), white);
   padding: 8rem 0 4rem;
   text-align: center;
 }
@@ -119,55 +125,95 @@ body {
   background: var(--secondary-color);
 }
 
-/* Footer */
-footer {
-  background: white;
-  padding: 1rem 0;
+.btn-primary{
+  background: var(--primary-color);
+  color: white;
+  border: none;
+}
+
+.btn-primary:hover {
+  background: var(--secondary-color);
+}
+
+/* } */
+/* } */
+
+/* About page css {*/
+
+.about-section {
+  padding: 20px 0;
   text-align: center;
-  border-top: 1px solid #e5e7eb;
+}
+.about-section h2 {
+  margin-bottom: 20px;
+  font-weight: 700;
+  color: var(--primary-color); /* Primary brand color */
+}
+.about-section p {
+  font-size: 1.1rem;
+  color: #555;
+  max-width: 800px;
+  margin: 0 auto 30px auto;
+  line-height: 1.6;
+}
+.team-member {
+  margin-top: 30px;
+}
+.team-member h4 {
+  margin-top: 10px;
+  color: #333;
 }
 
-/* End */
+/* } */
 
-.mt-90{
-  margin-top: 90px;
+/* Feature page css */
+.features-container {
+  padding: 40px 0;
 }
+
+.feature-card-lg {
+  background-color: #ffffff;
+  border-radius: 12px;
+  padding: 30px;
+  margin-bottom: 25px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  transition: transform 0.3s, box-shadow 0.3s;
+  border-left: 5px solid var(--primary-color);
+  display: flex;
+  align-items: flex-start;
+}
+
+.feature-card-lg:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+}
+
+.feature-card-lg .icon {
+  font-size: 2.5rem;
+  color: #007bff;
+  margin-right: 20px;
+}
+
+.feature-card-lg h3 {
+  font-weight: 700;
+  margin-top: 0;
+  color: #333;
+}
+
+.feature-card-lg p {
+  color: #555;
+}
+
+/* } */
 
 /* Start */
-.remove {
-  display: none;
-  background: linear-gradient(to bottom, var(--light-bg), white);
-}
-/* .remove-btn{
-    display: none;
-} */
 
-.st {
-  font-size: 3rem;
-  /* margin-bottom: 10px; */
-  /* margin-top: 80px; */
-  text-align: center;
-}
-.cp {
-  margin-top: 10px;
-}
 .line {
   display: flex;
   margin: 40px;
   text-align: center;
   justify-content: space-between;
 }
-
-.btn {
-  /* width: 200px; */
-}
-
-/* add */
-/* .add{
-    display: -ms-inline-flexbox;
-    margin: 50px;
-    align-content: space-between;
-} */
 
 form {
   margin-top: 10px;
@@ -179,54 +225,29 @@ form {
   background: linear-gradient(to bottom, var(--light-bg), white);
 }
 
-.noRecord {
-  background-image: url("NoRecord.png");
-  background-size: cover;
-  height: 70vh;
-  /* width: 95vw; */
-  /* margin: 10px; */
-  /* margin-bottom: 33px; */
-  background-position: center;
-  /* background-blend-mode: color-dodge; */
-}
-
 .mainMenu {
   margin-left: auto;
-  /* margin-right: auto; */
   width: 57%;
 }
-#backBtn{
-  width: 25%;
+#backBtn {
+  width: 150px;
 }
-
-/* .menu{
-    width: 100vh;
-    height: 100vw;
-} */
-
-/* footer {
-  margin-top: 8%;
-} */
 
 .form-control,
 .input-group-text {
-  height: 38px; /* Default Bootstrap input height */
+  height: 38px;
   line-height: 1.5;
 }
 
-.input-group{
-  width: 65%;
+.input-group {
+  width: 40%;
 }
 
-/* option 4 */
-.search {
-  /* height: 33%; */
-  width: 55%;
-  margin: auto;
-  /* align-content: center; */
-  /* margin-left: auto; */
-  /* margin-top: 10px;
-  margin-bottom: 10px; */
+.inpBox {
+  width: 45%;
+}
+.btnsDiv {
+  width: 45%;
 }
 
 .search button {
@@ -234,6 +255,7 @@ form {
 }
 
 /* Menu Style */
+
 .main-div {
   margin: auto;
 
@@ -256,7 +278,217 @@ form {
   font-size: 16px;
 }
 
-
-.search .btn-warning{
+.search .btn-warning {
   width: 40%;
+}
+
+.btnsDiv .btn {
+  width: 150px;
+}
+
+@media screen and (max-width: 500px) {
+  .st {
+    font-size: 2rem;
+    text-align: center;
+  }
+
+  .inpBox,
+  .btnsDiv {
+    width: 75%;
+  }
+}
+
+@media (min-width: 1200px) {
+  .fs-1 {
+    font-size: 3.5rem !important;
+  }
+}
+
+/* Menu CSS */
+section.menu {
+  flex: 1 0 auto;
+}
+
+.mainDiv .btn-lg {
+  font-size: 1.75rem;
+  padding: 1rem 1.5rem;
+}
+
+.mainDiv .btn {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Scale and shadow on hover */
+.mainDiv .btn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.mainDiv .btn-success:hover {
+  box-shadow: 0 8px 20px rgba(40, 167, 69, 0.4);
+}
+
+.mainDiv .btn-primary:hover {
+  box-shadow: 0 8px 20px rgba(13, 110, 253, 0.4);
+}
+
+.mainDiv .btn-danger:hover {
+  box-shadow: 0 8px 20px rgba(220, 53, 69, 0.4);
+}
+
+@media (min-width: 766px) and (max-width: 840px) {
+  .mainDiv .btn-lg {
+    font-size: 1.5rem;
+  }
+}
+
+/* table */
+@media (max-width: 767px) {
+  .table-responsive {
+    overflow-x: auto;
+  }
+}
+
+/* Delete.html css */
+#deleteItems .st {
+  font-size: 4rem;
+  text-align: center;
+}
+
+/* Footer */
+
+li a {
+  opacity: 0.7;
+}
+
+li a:hover {
+  opacity: 1;
+}
+
+/* footer {
+  background-color: #faf9f6;
+  color: var(--primary-color);
+}
+
+footer h5, i{
+  color: var(--primary-color);
+} */
+
+:root {
+  --primary-color: #4f46e5;
+  --secondary-color: #3730a3;
+  --light-bg: #f8fafc;
+  --text-color: #1f2937;
+}
+
+body {
+  font-family: "Segoe UI", "Roboto", sans-serif;
+  background-color: var(--light-bg);
+  color: var(--text-color);
+  margin: 0;
+  padding: 0;
+}
+
+/* Navbar */
+.navbar {
+  background: #fff;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  padding: 1rem 0;
+  position: fixed;
+  width: 100%;
+  top: 0;
+  z-index: 1000;
+}
+
+.navbar .logo {
+  color: var(--primary-color);
+  font-weight: bold;
+  font-size: 1.5rem;
+  text-decoration: none;
+}
+
+main {
+  padding-top: 100px;
+  /* text-align: center; */
+}
+
+/* Menu Cards */
+.menu-card {
+  background: #fff;
+  border-radius: 20px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+  padding: 40px 20px;
+  text-align: center;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  border: 1px solid #f1f5f9;
+}
+
+.menu-card i {
+  font-size: 48px;
+  color: var(--primary-color);
+  margin-bottom: 15px;
+  display: block;
+  transition: transform 0.3s ease;
+}
+
+.menu-card h5 {
+  font-size: 18px;
+  color: var(--text-color);
+  font-weight: 600;
+  margin-top: 10px;
+}
+
+.menu-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 24px rgba(79, 70, 229, 0.2);
+  background: var(--light-bg);
+}
+
+.menu-card:hover i {
+  transform: translateY(-5px) scale(1.1);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .menu-card {
+    padding: 30px 15px;
+  }
+
+  .menu-card i {
+    font-size: 36px;
+  }
+
+  .menu-card h5 {
+    font-size: 16px;
+  }
+}
+
+
+footer {
+  background-color: #fff;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+  color: var(--primary-color);
+}
+
+footer h5, i, strong {
+  color: var(--primary-color);
+}
+
+footer a {
+  color: var(--primary-color);
+  transition: color 0.3s ease;
+}
+
+footer a:hover {
+  color: var(--secondary-color);
+  text-decoration: underline;
+}
+
+#features i{
+  color: var(--primary-color);
+}
+
+.nav-links a{
+  font-size: 1.33rem;
 }

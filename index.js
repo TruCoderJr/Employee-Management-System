@@ -1,11 +1,8 @@
 // index pg js
 let startBtn = document.querySelector("#startBtn");
-
 let employeesData = [];
-// let cpName = null;
 let count = localStorage.getItem("isDataFetch") || 0;
 
-// Event listener for Start button
 if (startBtn) {
   startBtn.addEventListener("click", () => {
     localStorage.setItem("isDataFetch", count);
@@ -20,14 +17,25 @@ function loadEmpDataFromLocalStorage() {
   }
 }
 
-// menu page
-
 // <!-- add page  -->
 
 let submittedEmpData = document.querySelector(`#submitEmpData`);
-let addedEmpData = document.querySelector(`#addEmpData`);
+let addEmpBtn = document.querySelector(`#addEmpBtn`);
 let form = document.querySelector(`#employeeForm`);
 let tblBody = document.querySelector("tbody");
+const alertPlaceholder = document.getElementById("alertPlaceholder");
+
+function showAlert(message, type) {
+  const wrapper = document.createElement("div");
+  wrapper.innerHTML = `
+        <div class="alert alert-${type} alert-dismissible fade show mt-3" role="alert">
+          ${message}
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+      `;
+  alertPlaceholder.innerHTML = "";
+  alertPlaceholder.append(wrapper);
+}
 
 function saveEmpDataToLocalStorage() {
   localStorage.setItem("employeesData", JSON.stringify(employeesData));
@@ -45,9 +53,8 @@ async function removeTblBd() {
   tblBody.innerHTML = "";
 }
 
-async function makeTable(id, name, des, deprt, ems, phs) {
+async function makeTable(id, name, gen, sal, des, deprt, ems, phs) {
   let tbls = document.querySelector("table");
-  // console.dir(tbls);
 
   if (tbls.classList.contains("remove")) {
     tbls.classList.remove("remove");
@@ -64,6 +71,8 @@ async function makeTable(id, name, des, deprt, ems, phs) {
   tblRow.innerHTML = `
     <td>${id}</td>
     <td>${name}</td>
+    <td>${gen}</td>
+    <td>${sal}</td>
     <td>${des}</td>
     <td>${deprt}</td>
     <td>${ems}</td>
@@ -71,7 +80,6 @@ async function makeTable(id, name, des, deprt, ems, phs) {
 
   if (window.location.pathname.includes("delete.html")) {
     let delBtn = document.createElement("Button");
-    // delBtn.classList.add("btn");
     delBtn.classList.add("btn");
     delBtn.classList.add("btn-danger");
     delBtn.id = id;
@@ -81,171 +89,115 @@ async function makeTable(id, name, des, deprt, ems, phs) {
     tblRow.append(td7);
     tblRow.id = id;
   }
-
-  console.dir(tblRow);
-
   tblBody.append(tblRow);
 }
 
-async function addEmp() {
-  if (addedEmpData != null) {
-    addedEmpData.addEventListener("click", async (event) => {
-      // event.stopPropagation();
+function getFromData(id, name, gen, sal, des, deprt, ems, phs) {
+  if (
+    id.value === "" ||
+    name.value === "" ||
+    gen.value === "" ||
+    sal.value === "" ||
+    des.value === "" ||
+    deprt.value === "" ||
+    ems.value === "" ||
+    phs.value === ""
+  ) {
+    showAlert("⚠️ Please fill all required fields correctly!", "danger");
+    return false;
+  }
 
-      let ids = document.querySelector("#empId");
-      let name = document.querySelector("#empName");
-      let des = document.querySelector("#designation");
-      let deprt = document.querySelector("#department");
-      let ems = document.querySelector("#email");
-      let phs = document.querySelector("#phone");
+  let newEmployee = {
+    id: id.value,
+    name: name.value,
+    salary: sal.value,
+    gender: gen.value,
+    designation: des.value,
+    department: deprt.value,
+    email: ems.value,
+    phno: phs.value,
+  };
+  return newEmployee;
+}
 
-      if (
-        ids.value === "" &&
-        name.value === "" &&
-        des.value === "" &&
-        deprt.value === "" &&
-        ems.value === "" &&
-        phs.value === ""
-      ) {
-        return;
-      } else if (
-        ids.value === "" ||
-        name.value === "" ||
-        des.value === "" ||
-        deprt.value === "" ||
-        ems.value === "" ||
-        phs.value === ""
-      ) {
-        console.log("inside isFilled: if");
-        alert("Please fill all details!!");
-        return; // Exit early to prevent further execution
-      }
+function clearForm(ids, name, gen, sal, des, deprt, ems, phs) {
+  ids.value = "";
+  name.value = "";
+  gen.value = "";
+  sal.value = "";
+  des.value = "";
+  deprt.value = "";
+  ems.value = "";
+  phs.value = "";
+}
 
-      console.log("inside addedEmpData 'if'");
+if (addEmpBtn || submittedEmpData) {
+  let ids = document.querySelector("#empId");
+  let name = document.querySelector("#empName");
+  let gen = document.querySelector("#gender");
+  let sal = document.querySelector("#salary");
+  let des = document.querySelector("#designation");
+  let deprt = document.querySelector("#department");
+  let ems = document.querySelector("#email");
+  let phs = document.querySelector("#phone");
 
-      let existingData = getEmployees();
-      // JSON.parse(localStorage.getItem("employeesData")) || [];
+  if (addEmpBtn) {
+    addEmpBtn.addEventListener("click", async (event) => {
+      let emp = getFromData(ids, name, gen, sal, des, deprt, ems, phs);
 
-      // 🔹 Add new employee data
-      let newEmployee = {
-        id: ids.value,
-        name: name.value,
-        designation: des.value,
-        department: deprt.value,
-        email: ems.value,
-        phno: phs.value,
-      };
+      if (emp == false) return;
 
-      existingData.push(newEmployee); // Append to the existing list
+      employeesData.push(emp);
 
-      // 🔹 Save updated list back to localStorage
-      localStorage.setItem("employeesData", JSON.stringify(existingData));
+      saveEmpDataToLocalStorage();
 
-      await makeTable(
-        ids.value,
-        name.value,
-        des.value,
-        deprt.value,
-        ems.value,
-        phs.value
+      makeTable(
+        emp.id,
+        emp.name,
+        emp.gender,
+        emp.salary,
+        emp.designation,
+        emp.department,
+        emp.email,
+        emp.phno
       );
-      console.log("Clear inputs only when successfully added");
-      ids.value = "";
-      name.value = "";
-      des.value = "";
-      deprt.value = "";
-      ems.value = "";
-      phs.value = "";
+
+      clearForm(ids, name, gen, sal, des, deprt, ems, phs);
     });
   }
 
   if (submittedEmpData) {
     submittedEmpData.addEventListener("click", async (event) => {
-      // event.stopPropagation();
-
-      let ids = document.querySelector("#empId");
-      let name = document.querySelector("#empName");
-      let des = document.querySelector("#designation");
-      let deprt = document.querySelector("#department");
-      let ems = document.querySelector("#email");
-      let phs = document.querySelector("#phone");
-
       let isFilled = false;
 
-      if (
-        ids.value === "" &&
-        name.value === "" &&
-        des.value === "" &&
-        deprt.value === "" &&
-        ems.value === "" &&
-        phs.value === ""
-      ) {
-        isFilled = true; // Mark as filled to bypass the error alert
-        // removeTblBd();
-        window.location.href = "menu.html";
-      } else if (
-        ids.value !== "" &&
-        name.value !== "" &&
-        des.value !== "" &&
-        deprt.value !== "" &&
-        ems.value !== "" &&
-        phs.value !== ""
-      ) {
-        let existingData = getEmployees();
-        // JSON.parse(localStorage.getItem("employeesData")) || [];
+      let emp = getFromData(ids, name, gen, sal, des, deprt, ems, phs);
 
-        // 🔹 Add new employee data
-        let newEmployee = {
-          id: ids.value,
-          name: name.value,
-          designation: des.value,
-          department: deprt.value,
-          email: ems.value,
-          phno: phs.value,
-        };
+      if (emp == false) return;
 
-        existingData.push(newEmployee); // Append to the existing list
+      employeesData.push(emp);
 
-        // 🔹 Save updated list back to localStorage
-        localStorage.setItem("employeesData", JSON.stringify(existingData));
+      saveEmpDataToLocalStorage();
 
-        await makeTable(
-          ids.value,
-          name.value,
-          des.value,
-          deprt.value,
-          ems.value,
-          phs.value
-        );
+      makeTable(
+        emp.id,
+        emp.name,
+        emp.gender,
+        emp.salary,
+        emp.designation,
+        emp.department,
+        emp.email,
+        emp.phno
+      );
 
-        isFilled = true;
-
-        window.location.href = "menu.html";
-      }
-
-      if (!isFilled) {
-        // Only trigger alert when the condition is genuinely unmet
-        console.log("inside isFilled: if");
-        alert("Please fill all details!!");
-      }
-      setTimeout(() => {
-        alert("Update Succesfull");
-      }, 5000);
+      isFilled = true;
+      clearForm(ids, name, gen, sal, des, deprt, ems, phs);
+      setTimeout(() => {}, 5000);
+      window.location.href = "menu.html";
     });
   }
-
-  // if(updateEmpData){
-  //   updateEmpData.addEventListener("click", addEmp);
-  // }
 }
 
-if (window.location.pathname.includes("addEmp.html")) {
-  console.log("add emp");
-
-  addEmp();
-}
-
-// Update
+// update
 let searchBt = document.querySelector("#searchBt");
 let searchIp = document.querySelector("#userIp");
 let updForm = document.querySelector("form");
@@ -259,21 +211,15 @@ if (searchBtn) {
     let searchIp = document.querySelector(".userIp");
     let isFound = false;
 
-    if (searchIp.value.trim() != "") {
-      // removeTblBd();
-    }
-
     if (searchIp.value.trim() == "") {
-      alert("Please enter an ID");
+      showAlert("⚠️ Please enter an ID!", "danger");
     } else {
-      // Find the correct index of the item using findIndex()
-      let idx = employeesData.findIndex((item) => item.id == searchIp.value.trim());
+      let idx = employeesData.findIndex(
+        (item) => item.id == searchIp.value.trim()
+      );
 
       if (idx !== -1) {
-        console.log(idx);
-
         let item = employeesData[idx];
-        console.log(item);
 
         if (updForm.classList.contains("remove")) {
           updForm.classList.remove("remove");
@@ -293,6 +239,8 @@ if (searchBtn) {
         // Selecting input fields
         let id = document.querySelector("#empId");
         let name = document.querySelector("#empName");
+        let gen = document.querySelector("#gender");
+        let sal = document.querySelector("#salary");
         let des = document.querySelector("#designation");
         let deprt = document.querySelector("#department");
         let ems = document.querySelector("#email");
@@ -301,15 +249,14 @@ if (searchBtn) {
         // Assign values
         id.value = item.id;
         name.value = item.name;
+        gen.value = item.gender;
+        sal.value = item.salary;
         des.value = item.designation;
         deprt.value = item.department;
         ems.value = item.email;
         phs.value = item.phno;
-        // makeTable(emp.id, emp.name, emp.designation, emp.department, emp.email, emp.phno);
 
-        console.log("Before deletion:", employeesData);
-        employeesData.splice(idx, 1); // Delete the found item
-        console.log("After deletion:", employeesData);
+        employeesData.splice(idx, 1);
 
         isFound = true;
       }
@@ -331,86 +278,42 @@ if (searchBtn) {
         if (dnf.classList.contains("remove")) {
           dnf.classList.remove("remove");
         }
-        console.log("Item not found.");
       }
     }
-    searchIp.value = ""; // Clear input field
+    searchIp.value = "";
   });
 }
 
 async function UpdateEmp() {
   let ids = document.querySelector("#empId");
   let name = document.querySelector("#empName");
+  let gen = document.querySelector("#gender");
+  let sal = document.querySelector("#salary");
   let des = document.querySelector("#designation");
   let deprt = document.querySelector("#department");
   let ems = document.querySelector("#email");
   let phs = document.querySelector("#phone");
 
-  // let name = document.querySelector('.d2 input');
-  // let des = document.querySelector('.d3 input');
-  // let dep = document.querySelector('.d4 input');
+  let emp = getFromData(ids, name, gen, sal, des, deprt, ems, phs);
 
-  // console.log(ids.value);
-  //   console.log(name.value);
-  //   console.log(des.value);
-  //   console.log(deprt.value);
-  //   console.log(ems.value);
-  //   console.log(phs.value);
-  //   console.log(ids.value);
+  if (emp == false) return;
 
-  // Check if all fields are filled
-  if (
-    ids.value === "" &&
-    name.value === "" &&
-    des.value === "" &&
-    deprt.value === "" &&
-    ems.value === "" &&
-    phs.value === ""
-  ) {
-    return;
-  } else if (
-    ids.value === "" ||
-    name.value === "" ||
-    des.value === "" ||
-    deprt.value === "" ||
-    ems.value === "" ||
-    phs.value === ""
-  ) {
-    console.log("inside isFilled: if");
-    alert("Please fill all details!!");
-    return; // Exit early to prevent further execution
-  }
+  employeesData.push(emp);
 
-  console.log("inside itemAdded 'if'");
-  // employeesData.push({ id: ids.value, name: name.value, designation: des.value + " " + deprt.value, email: ems.value, phno: phs.value });
-  employeesData.push({
-    id: parseInt(ids.value),
-    name: name.value,
-    designation: des.value,
-    department: deprt.value,
-    email: ems.value,
-    phno: phs.value,
-  });
-  saveEmpDataToLocalStorage(); // Save to localStorage
+  saveEmpDataToLocalStorage();
 
-  await makeTable(
-    ids.value,
-    name.value,
-    des.value,
-    deprt.value,
-    ems.value,
-    phs.value
+  makeTable(
+    emp.id,
+    emp.name,
+    emp.gender,
+    emp.salary,
+    emp.designation,
+    emp.department,
+    emp.email,
+    emp.phno
   );
-  // postAPI(option(ids.value, name.value, des.value, deprt.value, ems.value, phs.value));
-  // Clear inputs only when successfully added
-  console.log("Clear inputs only when successfully added");
-  ids.value = "";
-  name.value = "";
-  des.value = "";
-  deprt.value = "";
-  ems.value = "";
-  phs.value = "";
-  updForm.classList.add("remove");
+
+  clearForm(ids, name, gen, sal, des, deprt, ems, phs);
 }
 
 if (updateBtn) {
@@ -419,49 +322,44 @@ if (updateBtn) {
 
 // search by id
 employeesData = getEmployees();
-console.log(employeesData);
 let searchBtnForId = document.querySelector("#searchBtnForId");
 
 function searchEmpById() {
   let isFound = false;
   if (searchIp.value.trim() == "") {
-    alert("Please enter ID");
+    showAlert("⚠️ Please enter an ID!", "danger");
   } else {
     let tblRowdata = document.querySelector("tbody tr");
     if (tblRowdata) {
       tblRowdata.remove();
     }
     employeesData.forEach((emp) => {
-      //   console.log(searchIp.value, emp.id, searchIp.value == emp.id);
-
       if (searchIp.value.trim() == emp.id) {
         let dnf = document.querySelector(".noRecordFound");
         if (!dnf.classList.contains("remove")) {
           dnf.classList.add("remove");
         }
         if (tblBody) {
-          console.log("removeTblBd");
           tblBody.innerHTML = "";
-
-          // removeTblBd();
         }
         makeTable(
           emp.id,
           emp.name,
+          emp.gender,
+          emp.salary,
           emp.designation,
           emp.department,
           emp.email,
           emp.phno
         );
+
         isFound = true;
-        // return;
       }
     });
     if (!isFound) {
       let dnf = document.querySelector(".noRecordFound");
       let tbls = document.querySelector("table");
       let tr = document.querySelector("tbody tr");
-      // console.log("before removeTblBd");
 
       if (tr) {
         tr.remove();
@@ -485,16 +383,14 @@ if (searchBtnForId) {
 }
 
 // search by name
-
 employeesData = getEmployees();
-console.log(employeesData);
 
 let searchBtnForName = document.querySelector("#searchBtnForName");
 
 function searchEmpByName() {
   let isFound = false;
   if (searchIp.value.trim() == "") {
-    alert("Please enter name");
+    showAlert("⚠️ Please enter Name!", "danger");
   } else {
     let tblRowdata = document.querySelector("tbody tr");
     if (tblRowdata) {
@@ -503,29 +399,29 @@ function searchEmpByName() {
     employeesData.forEach((emp) => {
       if (
         searchIp.value.trim().toLowerCase() == emp.name.toLowerCase() ||
-        searchIp.value.trim().toLowerCase() == emp.name.toLowerCase().split(" ")[0] ||
-        searchIp.value.trim().toLowerCase() == emp.name.toLowerCase().split(" ")[1]
+        searchIp.value.trim().toLowerCase() ==
+          emp.name.toLowerCase().split(" ")[0] ||
+        searchIp.value.trim().toLowerCase() ==
+          emp.name.toLowerCase().split(" ")[1]
       ) {
         let dnf = document.querySelector(".noRecordFound");
         if (!dnf.classList.contains("remove")) {
           dnf.classList.add("remove");
         }
         if (tblBody) {
-          console.log("removeTblBd");
-
-          // removeTblBd();
           tblBody.innerHTML = "";
         }
         makeTable(
           emp.id,
           emp.name,
+          emp.gender,
+          emp.salary,
           emp.designation,
           emp.department,
           emp.email,
           emp.phno
         );
         isFound = true;
-        // return;
       }
     });
     if (!isFound) {
@@ -567,7 +463,6 @@ const designation_depart = {
 };
 
 function showData(apiData) {
-  console.log(apiData);
   let size = employeesData.length;
 
   for (let i = 0; i < apiData.length; i++) {
@@ -576,24 +471,22 @@ function showData(apiData) {
       continue;
     }
 
-    // Randomly select a designation and department
     let random = Math.floor(Math.random() * 8);
     let [desg, dept] = Object.entries(designation_depart)[random];
 
-    console.log(desg, dept);
-    console.log(data.id, "name:", data.name);
-
-    // Push the employee data into the array
+    let sal = Math.floor(Math.random() * 100000);
+    let genArray = ["Male", "Female", "Other"];
     employeesData.push({
       id: data.id,
       name: data.name,
+      salary: sal,
+      gender: genArray[Math.floor(Math.random() * 3)],
       designation: desg,
       department: dept,
       email: data.email,
       phno: data.phone,
     });
 
-    // Save the employee data to localStorage
     saveEmpDataToLocalStorage();
 
     if (size < 5) {
@@ -603,8 +496,6 @@ function showData(apiData) {
 }
 
 async function viewEmp() {
-  console.log("Fetching inventory items...");
-  // loadEmpDataFromLocalStorage();
   employeesData = getEmployees();
   if (employeesData.length != 0) {
     let isFetch = localStorage.getItem("isDataFetch");
@@ -625,7 +516,6 @@ async function viewEmp() {
     }
 
     let tbls = document.querySelector("table");
-    // console.dir(tbls);
 
     if (tbls.classList.contains("remove")) {
       tbls.classList.remove("remove");
@@ -635,13 +525,14 @@ async function viewEmp() {
       makeTable(
         emp.id,
         emp.name,
+        emp.gender,
+        emp.salary,
         emp.designation,
         emp.department,
         emp.email,
         emp.phno
       );
     });
-    // [{"id":"12","name":"Md Tufail","designation":"Sales Manager","department":"Sales","email":"forla787@gmail.com","phno":"7667013081"}]
   } else {
     let dnf = document.querySelector(".noRecordFound");
     if (dnf.classList.contains("remove")) {
@@ -657,7 +548,6 @@ if (backBtn) {
 }
 
 if (window.location.pathname.includes("viewEmp.html")) {
-  console.log("view emp");
   viewEmp();
 }
 
@@ -670,14 +560,13 @@ let searchBtnByIdForDelete = document.querySelector("#searchBtnByIdForDelete");
 let viewAllData = document.querySelector("#viewAllData");
 let table = document.querySelector("table");
 let tbl = document.querySelector("table");
-let thead = document.querySelector('thead');
+let thead = document.querySelector("thead");
 
 if (table) {
   table.style.display = "";
 }
 
 employeesData = getEmployees();
-console.log(employeesData);
 
 if (searchBtnByIdForDelete) {
   searchBtnByIdForDelete.addEventListener("click", searchEmpById);
@@ -693,8 +582,6 @@ if (viewAllData) {
 
 if (tbl) {
   tbl.addEventListener("click", (event) => {
-    console.log(event);
-
     if (event.srcElement.innerText == "Delete") {
       let delIdx;
       let delRow = document.getElementById(event.target.id);
@@ -710,18 +597,10 @@ if (tbl) {
         employeesData.splice(delIdx, 1);
         saveEmpDataToLocalStorage();
         delRow.remove();
-        // console.dir(table);
         totRow = document.querySelectorAll("tbody tr");
         if (totRow.length == 0) {
-          // table.style.display = "none";
           table.classList.add("remove");
-          // thead.classList.add()
-
-        } 
-        // else {
-        //   // table.style.display = "";
-        //   table.classList.add();
-        // }
+        }
       }
     }
   });
