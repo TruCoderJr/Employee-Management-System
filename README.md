@@ -90,7 +90,7 @@ Contributions are welcome! If you have any suggestions or find any bugs, feel fr
 
 **Md Tufail**
 
-* **GitHub:** [Your GitHub Profile Link] (e.g., `https://github.com/MdTufail`)
+* **GitHub:** [Your GitHub Profile Link] (e.g., `https://github.com/TufailMd`)
 * **Contact:** support@ems.com (as seen in the footer)
 
 *(If you like this project, consider giving it a star! ⭐)*
